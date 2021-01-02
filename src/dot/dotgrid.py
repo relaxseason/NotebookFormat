@@ -18,11 +18,12 @@ pdfFile.setSubject('ドット方眼A4, 5mm')
 # A4
 a4width = 210
 a4height = 297
-pdfFile.setPageSize((a4width*mm, a4height*mm))
+a4width_mm = a4width*mm
+a4height_mm = a4height*mm
+pdfFile.setPageSize((a4width_mm, a4height_mm))
 
 # pdfFile.setFillColorRGB(128, 128, 128)
 pdfFile.setFillColor(colors.lightgrey)
-# pdfFile.setFillColorRGB(255, 0, 0)
 
 # 余白
 x_space = 0
