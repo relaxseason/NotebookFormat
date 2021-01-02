@@ -3,10 +3,14 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
+import math
 logger = getLogger(__name__)
 
-
-pdfFile = canvas.Canvas('./FLEXD3D4-Dot.pdf')
+# 出力先設定
+outPath = "./pdf"
+outFileName = "FLEXD3D4-Dot"
+outFileExt = "pdf"
+pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outPath, outFileName, outFileExt))
 pdfFile.saveState()
 
 pdfFile.setAuthor('relaxseason')
@@ -23,10 +27,10 @@ pdfFile.setPageSize((a4width*mm, a4height*mm))
 # pdfFile.setPageSize((18.2*cm, 25.7*cm))
 
 # ラインの色指定
-# pdfFile.setFillColor(colors.green)
-pdfFile.setStrokeColor(colors.black)
+linecolor = colors.blue
+# linecolor = colors.green
+pdfFile.setStrokeColor(linecolor)
 # pdfFile.setFillColorRGB(128, 128, 128)
-
 
 # ラインの太さを変更する
 pdfFile.setLineWidth(0.01*mm)
@@ -41,37 +45,19 @@ d3width = 90
 d3width1_mm = d3width * mm
 pdfFile.line(d3width1_mm, 0, d3width1_mm, a4height_mm)
 
-# M9用の9マスを追加する
-# M9のラインの太さを変更する
-pdfFile.setLineWidth(1)
+# ドット方眼
+pdfFile.setFillColor(linecolor)
+dotspace1st = 1.25
+for x, y in [((x)*dotspace1st, (y)*dotspace1st)
+             for x in range(math.ceil(a4width/dotspace1st))
+             for y in range(math.ceil(a4height/dotspace1st))]:
+    pdfFile.circle(x*mm, y*mm, 0.15*mm, stroke=0, fill=1)
 
-# 表の描画
-base_x_space = 3
-base_y_space = 29.25
-cellwidth = 28
-base_points = [{"x": 0, "y": 0}, {"x": 0, "y": half_height}]
-for base in base_points:
-    x_space = base_x_space + base["x"]
-    y_space = base_y_space + base["y"]
-    xlist = ((x_space + cellwidth * 0) * mm, (x_space + cellwidth * 1) *
-             mm, (x_space + cellwidth * 2) * mm, (x_space + cellwidth * 3) * mm)
-    ylist = ((y_space + cellwidth * 0) * mm, (y_space + cellwidth * 1) *
-             mm, (y_space + cellwidth * 2) * mm, (y_space + cellwidth * 3) * mm)
-    pdfFile.grid(xlist, ylist)
-
-
-# D4
-d4cellwidth = 38
-d4base_y_space = 14.25
-base_points = [{"x": d3width, "y": 0}, {"x": d3width, "y": half_height}]
-for base in base_points:
-    x_space = base_x_space + base["x"]
-    y_space = d4base_y_space + base["y"]
-    xlist = ((x_space + d4cellwidth * 0) * mm, (x_space + d4cellwidth * 1) *
-             mm, (x_space + d4cellwidth * 2) * mm, (x_space + d4cellwidth * 3) * mm)
-    ylist = ((y_space + d4cellwidth * 0) * mm, (y_space + d4cellwidth * 1) *
-             mm, (y_space + d4cellwidth * 2) * mm, (y_space + d4cellwidth * 3) * mm)
-    pdfFile.grid(xlist, ylist)
+dotspace2nd = 5
+for x, y in [((x)*dotspace2nd, (y)*dotspace2nd)
+             for x in range(math.ceil(a4width/dotspace2nd))
+             for y in range(math.ceil(a4height/dotspace2nd))]:
+    pdfFile.circle(x*mm, y*mm, 0.25*mm, stroke=0, fill=1)
 
 
 pdfFile.restoreState()
