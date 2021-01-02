@@ -1,8 +1,5 @@
 # -*- coding:utf-8 -*-
 from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.cidfonts import UnicodeCIDFont
-from reportlab.lib.units import cm
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
@@ -10,15 +7,15 @@ logger = getLogger(__name__)
 
 # 出力先設定
 outPath = "./pdf"
-outFileName = "FLEXD3-M9"
+outFileName = "FLEXD3-Dot"
 outFileExt = "pdf"
 pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outPath, outFileName, outFileExt))
 pdfFile.saveState()
 
 # Property
 pdfFile.setAuthor('relaxseason')
-pdfFile.setTitle('FLEXNOTE D3用 M9罫')
-pdfFile.setSubject('FLEXNOTE D3用 M9罫')
+pdfFile.setTitle('FLEXNOTE D3用 ドット')
+pdfFile.setSubject('FLEXNOTE D3用 ドット')
 
 # A4
 a4width = 210
