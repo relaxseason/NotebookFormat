@@ -28,7 +28,8 @@ pdfFile.setPageSize((a4width*mm, a4height*mm))
 
 # ラインの色指定
 # linecolor = colors.blue
-linecolor = colors.orange
+# linecolor = colors.orange
+linecolor = colors.lightsalmon
 # linecolor = colors.green
 pdfFile.setStrokeColor(linecolor)
 # pdfFile.setFillColorRGB(128, 128, 128)

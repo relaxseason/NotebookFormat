@@ -7,10 +7,18 @@ import math
 logger = getLogger(__name__)
 
 
-outPath = "./pdf"
+lineColorStr = "赤"
+# linecolor = colors.blue
+# linecolor = colors.green
+linecolor = colors.red
+# pdfFile.setFillColorRGB(128, 128, 128)
+
+
+outDir = "./pdf"
 outFileName = "A5-M81B"
 outFileExt = "pdf"
-pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outPath, outFileName, outFileExt))
+path = "{0}/{1}{2}.{3}".format(outDir, outFileName, lineColorStr, outFileExt)
+pdfFile = canvas.Canvas(path)
 pdfFile.saveState()
 
 pdfFile.setAuthor('relaxseason')
@@ -28,10 +36,7 @@ a5height = a4width
 
 
 # ラインの色指定
-linecolor = colors.blue
-# linecolor = colors.green
 pdfFile.setStrokeColor(linecolor)
-# pdfFile.setFillColorRGB(128, 128, 128)
 
 # ラインの太さを変更する
 pdfFile.setLineWidth(0.1*mm)
