@@ -39,8 +39,10 @@ pdfFile.setLineWidth(0.01*mm)
 
 # A5 slimサイズ(210x99)にラインを入れる
 half_height = a4height/3
+pdfFile.line(0, a4height*mm, a4width*mm, a4height*mm)
 pdfFile.line(0, half_height*mm, a4width*mm, half_height*mm)
 pdfFile.line(0, half_height*2*mm, a4width*mm, half_height*2*mm)
+pdfFile.line(0, 0, a4width*mm, 0)
 
 # ドット方眼
 pdfFile.setFillColor(linecolor)
