@@ -3,13 +3,16 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
+import os
 logger = getLogger(__name__)
 
 # 出力先設定
-outPath = "./pdf"
+outDir = "./pdf/M9"
+if not os.path.exists(outDir):
+    os.makedirs(outDir, exist_ok=True)
 outFileName = "FLEXD3-M9"
 outFileExt = "pdf"
-pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outPath, outFileName, outFileExt))
+pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outDir, outFileName, outFileExt))
 pdfFile.saveState()
 
 # Property

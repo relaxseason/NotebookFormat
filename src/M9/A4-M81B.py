@@ -4,13 +4,17 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
 import math
+import os
 logger = getLogger(__name__)
 
 
-outPath = "./pdf"
+outDir = "./pdf/M9"
+if not os.path.exists(outDir):
+    os.makedirs(outDir, exist_ok=True)
+
 outFileName = "A4-M81B"
 outFileExt = "pdf"
-pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outPath, outFileName, outFileExt))
+pdfFile = canvas.Canvas("{0}/{1}.{2}".format(outDir, outFileName, outFileExt))
 pdfFile.saveState()
 
 pdfFile.setAuthor('relaxseason')

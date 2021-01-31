@@ -4,6 +4,7 @@ from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
 import math
+import os
 logger = getLogger(__name__)
 
 colorsList = [
@@ -44,7 +45,9 @@ colorsList = [
 # pdfFile.setFillColorRGB(128, 128, 128)
 
 for color, colorName in colorsList:
-    outDir = "./pdf"
+    outDir = "./pdf/M9"
+    if not os.path.exists(outDir):
+        os.makedirs(outDir, exist_ok=True)
     outFileName = "A5-M81B"
     outFileExt = "pdf"
     path = "{0}/{1}-{2}.{3}".format(outDir, outFileName, colorName, outFileExt)

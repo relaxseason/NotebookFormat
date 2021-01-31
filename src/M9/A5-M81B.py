@@ -3,6 +3,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
 from logging import getLogger
+import os
 import math
 logger = getLogger(__name__)
 
@@ -14,9 +15,12 @@ linecolor = colors.red
 # pdfFile.setFillColorRGB(128, 128, 128)
 
 
-outDir = "./pdf"
+outDir = "./pdf/M9"
+if not os.path.exists(outDir):
+    os.makedirs(outDir, exist_ok=True)
 outFileName = "A5-M81B"
 outFileExt = "pdf"
+
 path = "{0}/{1}{2}.{3}".format(outDir, outFileName, lineColorStr, outFileExt)
 pdfFile = canvas.Canvas(path)
 pdfFile.saveState()
