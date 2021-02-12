@@ -303,5 +303,5 @@ class BaseNoteFormat:
 
 if __name__ == "__main__":
     format = BaseNoteFormat("BaseTest")
-    #format.create_format(colors.green, "green")
+    # format.create_format(colors.green, "green")
     format.create_format_all_color()
