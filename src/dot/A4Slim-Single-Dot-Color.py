@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 import os
-from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
-from reportlab.pdfbase.ttfonts import TTFont
 from logging import getLogger
 import math
 logger = getLogger(__name__)
@@ -149,120 +147,6 @@ class BaseNoteFormat:
         self.pdf_file.restoreState()
         self.pdf_file.save()
         print("Save:{0}".format(color_name))
-
-    def draw_daily_header(self, color):
-        if self.pdf_file is None:
-            raise ValueError('pdf_file is not assigned')
-        # 日付領域
-        header_mergin_top = self.HEADER_TOP
-        header_mergin_left = self.HEADER_LEFT
-        header_mark_height = self.HEADER_HEIGHT
-        header_mark_width = self.HEADER_WIDTH
-        self.pdf_file.setLineWidth(0.4*mm)
-        self.pdf_file.rect(
-            (header_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-            (self.A4SLIM_PORTRAIT_HEIGHT -
-             (header_mergin_top + header_mark_height)) * mm,
-            (header_mark_width) * mm,
-            (header_mark_height) * mm
-        )
-        self.pdf_file.rect(
-            (header_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-            (self.A4SLIM_PORTRAIT_HEIGHT -
-             (header_mergin_top + header_mark_height)) * mm,
-            (header_mark_width) * mm,
-            (header_mark_height) * mm
-        )
-        self.pdf_file.rect(
-            (header_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-            (self.A4SLIM_PORTRAIT_HEIGHT -
-             (header_mergin_top + header_mark_height)) * mm,
-            (header_mark_width) * mm,
-            (header_mark_height) * mm
-        )
-
-    def draw_daily_timeline(self, color_name):
-        # タイムライン
-        interval = self.SECOND_DOT_INTERVAL
-        timeline_mergin_left = self.SECOND_DOT_INTERVAL * 2
-        division_size = self.FIRST_DOT_INTERVAL
-        timeline_head = self.A4SLIM_PORTRAIT_HEIGHT - \
-            (self.HEADER_TOP + self.HEADER_HEIGHT + self.HEADER_BOTTOM)
-
-        self.pdf_file.line(
-            (timeline_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-            timeline_head * mm,
-            (timeline_mergin_left +
-             self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-            (timeline_head - interval * 23) * mm
-        )
-        self.pdf_file.line(
-            (timeline_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-            timeline_head * mm,
-            (timeline_mergin_left +
-             self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-            (timeline_head - interval * 23) * mm
-        )
-        self.pdf_file.line(
-            (timeline_mergin_left + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-            timeline_head * mm,
-            (timeline_mergin_left +
-             self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-            (timeline_head - interval * 23) * mm
-        )
-
-        lines = [
-            ((timeline_mergin_left - division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-             (timeline_head - y * interval) * mm,
-             (timeline_mergin_left + division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-             (timeline_head - y * interval) * mm) for y in range(24)
-        ]
-        lines2 = [
-            ((timeline_mergin_left - division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-             (timeline_head - y * interval) * mm,
-             (timeline_mergin_left + division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-             (timeline_head - y * interval) * mm) for y in range(24)
-        ]
-        lines3 = [
-            ((timeline_mergin_left-division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-             (timeline_head - y * interval) * mm,
-             (timeline_mergin_left+division_size
-              + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-             (timeline_head - y * interval) * mm) for y in range(24)
-        ]
-        self.pdf_file.lines(lines + lines2 + lines3)
-
-        # タイムラインの数値
-        # フォント登録
-        fontfile = './fonts/GenShinGothic-Normal.ttf'
-        fontname = 'GenShinGothic'
-        pdfmetrics.registerFont(TTFont(fontname, fontfile))
-        font_size = 7
-        self.pdf_file.setFont(fontname, font_size)
-        self.pdf_file.setFillColor(colors.black)
-
-        # 描画位置
-        time_x = timeline_mergin_left - \
-            (division_size + self.FIRST_DOT_INTERVAL)
-        time_head = timeline_head - (self.FIRST_DOT_INTERVAL)
-        # 表示テキスト
-        times = ["{:02}".format(x)
-                 for x in (list(range(5, 23))+list(range(6)))]
-        for i, time in enumerate(times):
-            self.pdf_file.drawRightString(
-                (time_x + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-                (time_head - interval * i) * mm, time)
-            self.pdf_file.drawRightString(
-                (time_x + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-                (time_head - interval * i) * mm, time)
-            self.pdf_file.drawRightString(
-                (time_x + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-                (time_head - interval * i) * mm, time)
 
     def create_format(self, color, color_name):
         out_path = self.create_out_path(color_name)

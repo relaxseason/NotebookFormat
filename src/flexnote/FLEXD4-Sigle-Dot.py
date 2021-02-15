@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 import os
-from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 from reportlab.lib import colors
-from reportlab.pdfbase.ttfonts import TTFont
 from logging import getLogger
 import math
 logger = getLogger(__name__)
