@@ -88,7 +88,7 @@ class BaseNoteFormat:
         self.pdf_file.setTitle('A4 Slim 1.25ドット方眼')
         self.pdf_file.setSubject('A4 Slim 1.25ドット方眼')
         self.pdf_file.setPageSize(
-            (self.A4_LANDSCAPE_WIDTH*mm, self.A4_LANDSCAPE_HEIGHT*mm))
+            (self.A4_LANDSCAPE_WIDTH/3*mm, self.A4_LANDSCAPE_HEIGHT*mm))
 
     def set_color(self, color):
         if self.pdf_file is None:
@@ -110,14 +110,6 @@ class BaseNoteFormat:
                            0,
                            self.A4SLIM_PORTRAIT_WIDTH * 1 * mm,
                            self.A4SLIM_PORTRAIT_HEIGHT * mm)
-        self.pdf_file.line(self.A4SLIM_PORTRAIT_WIDTH * 2 * mm,
-                           0,
-                           self.A4SLIM_PORTRAIT_WIDTH * 2 * mm,
-                           self.A4SLIM_PORTRAIT_HEIGHT * mm)
-        self.pdf_file.line(self.A4SLIM_PORTRAIT_WIDTH * 3 * mm,
-                           0,
-                           self.A4SLIM_PORTRAIT_WIDTH * 3 * mm,
-                           self.A4SLIM_PORTRAIT_HEIGHT * mm)
 
     def draw_first_dotgrid(self, color):
         if self.pdf_file is None:
@@ -134,12 +126,6 @@ class BaseNoteFormat:
             self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
                                  (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
                                  self.FIRST_DOT_SIZE * mm, stroke=0, fill=1)
-            self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-                                 (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
-                                 self.FIRST_DOT_SIZE * mm, stroke=0, fill=1)
-            self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
-                                 (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
-                                 self.FIRST_DOT_SIZE * mm, stroke=0, fill=1)
 
     def draw_second_dotgrid(self, color):
         if self.pdf_file is None:
@@ -154,12 +140,6 @@ class BaseNoteFormat:
                                               / self.SECOND_DOT_INTERVAL) + 1)]
         for x, y in points2nd:
             self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 0) * mm,
-                                 (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
-                                 self.SECOND_DOT_SIZE * mm, stroke=0, fill=1)
-            self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 1) * mm,
-                                 (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
-                                 self.SECOND_DOT_SIZE * mm, stroke=0, fill=1)
-            self.pdf_file.circle((x + self.A4SLIM_PORTRAIT_WIDTH * 2) * mm,
                                  (self.A4SLIM_PORTRAIT_HEIGHT - y) * mm,
                                  self.SECOND_DOT_SIZE * mm, stroke=0, fill=1)
 
@@ -300,6 +280,6 @@ class BaseNoteFormat:
 
 
 if __name__ == "__main__":
-    format = BaseNoteFormat("A4SlimDotGrid")
+    format = BaseNoteFormat("A4SlimDotGridSigle")
     # format.create_format(colors.green, "green")
     format.create_format_all_color()
