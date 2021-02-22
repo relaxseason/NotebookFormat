@@ -64,7 +64,12 @@ class BaseNoteFormat:
             (colors.silver, "silver"),
             (colors.tan, "tan"),
             (colors.thistle, "thistle"),
-            (colors.wheat, "wheat"), ]
+            (colors.wheat, "wheat"),
+            (colors.turquoise, "turquoise"),
+            (colors.skyblue, "skyblue"),
+            (colors.slateblue, "slateblue"),
+            (colors.slategray, "slategray"),
+            (colors.mediumslateblue, "mediumslateblue"), ]
 
     def create_out_path(self, color_name):
         # 出力先の作成
